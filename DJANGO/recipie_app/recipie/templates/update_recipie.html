@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipies</title>
+    <script src="https://cdn.tailwindcss.com/3.3.5"></script>
+</head>
+<body>
+    <div class="container mt-5 mx-auto p-4">
+        <form action="" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h2 class="text-lg font-bold">Update Recipie</h2>
+            <hr>
+            <div class="mb-4 mt-4">
+                <label for="recipie_name" class="block text-gray-700 text-sm font-bold mb-2">Recipie Name</label>
+                <input type="text" value="{{recipie.recipie_name}}" required name="recipie_name" id="recipie_name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+            <div class="mb-4">
+                <label for="recipie_description" class="block text-gray-700 text-sm font-bold mb-2">Recipie Description</label>
+                <textarea name="recipie_description"  required id="recipie_description" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{recipie.recipie_description}}</textarea>
+            </div>
+
+            <div class="mb-4">
+                <label for="recipie_image" class="block text-gray-700 text-sm font-bold mb-2">Recipie Image</label>
+                <input type="file"  name="recipie_image" id="recipie_image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+
+ 
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Recipie</button>  
+            </div>
+        </form>
+
+
+    </div>
+</body>
+</html>

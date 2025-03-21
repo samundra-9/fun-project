@@ -27,9 +27,11 @@ urlpatterns = [
     path('login/', login_page),
     path('register/', register_page),
     path('logout/', logout_page),
+    path('students/', get_students),
+    path('see_marks/<str:student_id>/', see_marks, name='see_marks'), 
     path('admin/', admin.site.urls),
 
-]
+] 
 
 # Serve media files during development
 if settings.DEBUG:

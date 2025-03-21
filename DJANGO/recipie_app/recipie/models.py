@@ -38,3 +38,44 @@ class Student(models.Model):
     class meta:
         ordering = ['student_name']
         verbose_name = 'Student'
+
+class Subject(models.Model):
+    subject_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.subject_name
+
+class SubjectMarks(models.Model):
+    student = models.ForeignKey(Student, related_name='studentmarks',on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, related_name='subjectmarks',on_delete=models.CASCADE)
+    marks = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'{self.student} - {self.subject} - {self.marks}' 
+
+    class meta:
+        unique_together = ['student', 'subject']
+
+
+class ReportCard(models.Model):
+     student = models.ForeignKey(Student, related_name='reportcard',on_delete=models.CASCADE) 
+     student_rank = models.IntegerField(default=0)
+     date_of_reportcard_generation = models.DateField(auto_now_add=True ) 
+
+     class meta:
+         unique_together = ['student_rank', 'date_of_reportcard_generation'] 
+
+
+# creating a abstract class 
+from django.contrib.auth.models import AbstractUser
+class CustomUser(AbstractUser):
+    username = None
+    phone_number = models.CharField(max_length=13, unique=True)
+    email = models.EmailField(unique=True)
+    user_bio = models.CharField(max_length=100, null=True, blank=True)
+    profile_pic = models.ImageField(upload_to='profile_pic', default='profile_pic/default.jpg')
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    

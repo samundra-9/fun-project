@@ -3,6 +3,21 @@ import random
 from .models import *
 fake = Faker()
 
+from django.db.models import Sum
+import random
+
+def create_subject_marks(n) -> None:
+    try:
+        students_obj = Student.objects.all()
+        for student in students_obj:
+            subjects_obj = Subject.objects.all()
+            for subject in subjects_obj:
+                marks = random.randint(0, 100)
+                SubjectMarks.objects.create(student=student, subject=subject, marks=marks)
+    except Exception as e:
+        print(e)
+        print('Error in creating subject marks')
+
 def seed_db(n=10)->None:
     try:
         for i in range(0,n):
@@ -20,3 +35,11 @@ def seed_db(n=10)->None:
     except Exception as e:
         print(e)
         print('Error in seeding the database')  
+
+
+def generate_report_card()->None:
+    rank = list(Student.objects.annotate(total_marks=Sum('studentmarks__marks')).order_by('-total_marks','-student_age'))
+
+    for i, student in enumerate(rank):
+        ReportCard.objects.create(student=student, student_rank=i+1)
+ 

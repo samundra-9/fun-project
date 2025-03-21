@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 function App() {
   
-  function logout() {
+  function Logout() {
     localStorage.clear('token')
     return <Navigate to="/login" />
   }
@@ -26,6 +26,7 @@ function App() {
         }
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout/>} />
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
